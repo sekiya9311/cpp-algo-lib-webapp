@@ -1,11 +1,15 @@
 <template>
-  <div id="app">
-    <div id="header">
+  <div id="app" class="el-container is-vertical">
+    <div id="header" class="el-header">
+      header dayo!
     </div>
-    <div id="main">
-        <div id="sidebar">
-        </div>
+    <div class="el-container">
+      <div id="sidebar" class="el-aside">
+        sidebar dayo!
+      </div>
+      <div id="main" class="el-main">
         <router-view/>
+      </div>
     </div>
   </div>
 </template>
