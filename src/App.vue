@@ -8,9 +8,14 @@
         sidebar dayo!
       </div>
       <div id="main" class="el-main">
-        <pre class="language-javascript line-numbers">
-          <code>
-            const a = {}
+        <pre class="line-numbers">
+          <code class="language-cpp">
+            #include <bits/stdc++.h>
+            using namespace std;
+            int main() {
+              cout << "Hello World!" << endl;
+              return 0;
+            }
           </code>
         </pre>
         <router-view/>

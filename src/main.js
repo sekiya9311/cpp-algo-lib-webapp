@@ -8,6 +8,9 @@ import App from './App'
 import router from './router'
 
 import 'prismjs'
+import 'prismjs/components/prism-clike.min'
+import 'prismjs/components/prism-c.min'
+import 'prismjs/components/prism-cpp.min'
 import 'prismjs/themes/prism.css'
 
 Vue.config.productionTip = false
