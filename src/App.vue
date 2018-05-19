@@ -8,6 +8,11 @@
         sidebar dayo!
       </div>
       <div id="main" class="el-main">
+        <pre class="language-javascript line-numbers">
+          <code>
+            const a = {}
+          </code>
+        </pre>
         <router-view/>
       </div>
     </div>
