@@ -8,7 +8,7 @@
         sidebar dayo!
       </div>
       <div id="main" class="el-main">
-        <pre class="line-numbers">
+        <pre>
           <code class="language-cpp">
             #include <bits/stdc++.h>
             using namespace std;
