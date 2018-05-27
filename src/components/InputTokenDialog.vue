@@ -17,7 +17,7 @@ export default {
     }
   },
   methods: {
-    inputToken() {
+    inputToken () {
       // TODO: repository get logic (in App.vue or RepositoryTree.vue ?)
       console.log('token : ' + this.token)
       this.dialogVisible = false

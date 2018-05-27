@@ -1,6 +1,15 @@
 <template>
   <div>
-    SourcePage dayo!
+    <div class="title">
+      {{ data.name }}
+    </div>
+    <div class="source">
+      <pre>
+        <code class="language-cpp">
+          {{ data.content }}
+        </code>
+      </pre>
+    </div>
   </div>
 </template>
 
@@ -8,7 +17,8 @@
 export default {
   data () {
     return {}
-  }
+  },
+  props: ['data']
 }
 </script>
 
