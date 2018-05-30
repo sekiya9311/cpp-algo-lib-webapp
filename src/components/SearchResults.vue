@@ -13,11 +13,17 @@ import SearchResult from '@/components/SearchResult'
 export default {
   data () {
     return {
-      searchResultNodes: []
+      searchResultNodes: [],
+      allData: []
     }
   },
   components: {
     SearchResult
+  },
+  methods: {
+    setAllData (data) {
+      this.allData = data
+    }
   },
   computed: {
     getResults () {

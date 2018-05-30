@@ -2,7 +2,7 @@
   <div id="app" class="el-container is-vertical">
     <div id="header" class="el-header">
       header dayo!
-      <input-token-dialog />
+      <input-token-dialog @send-token="getRepository" />
     </div>
     <div class="el-container">
       <div id="sidebar" class="el-aside">
@@ -31,9 +31,22 @@ import InputTokenDialog from './components/InputTokenDialog'
 import RepositoryTree from './components/RepositoryTree'
 export default {
   name: 'App',
+  data () {
+    return {
+      token: ''
+    }
+  },
   components: {
     InputTokenDialog,
     RepositoryTree
+  },
+  methods: {
+    getRepository (tkn) {
+      this.token = tkn
+      console.log(this.token)
+      // TODO: get repository tree
+      //       send RepositoryTree and SearchResult
+    }
   }
 }
 </script>

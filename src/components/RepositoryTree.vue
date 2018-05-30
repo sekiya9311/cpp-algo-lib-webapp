@@ -26,8 +26,11 @@ export default {
   methods: {
     nodeClick (data) {
       if (data.type === 'file') {
-        console.log('file dayo');
+        console.log('file dayo')
       }
+    },
+    setTreeData (data) {
+      this.treeData = data
     }
   }
 }
