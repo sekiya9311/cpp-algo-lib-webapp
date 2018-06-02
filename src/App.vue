@@ -29,11 +29,15 @@
 <script>
 import InputTokenDialog from './components/InputTokenDialog'
 import RepositoryTree from './components/RepositoryTree'
+import axios from 'axios'
 export default {
   name: 'App',
   data () {
     return {
-      token: ''
+      Token: '',
+      tree: [],
+      RepositoryContents: 'https://api.github.com/repos/sekiya9311/CplusplusAlgorithmLibrary/contents',
+      AccessToken: ''
     }
   },
   components: {
@@ -42,10 +46,58 @@ export default {
   },
   methods: {
     getRepository (tkn) {
-      this.token = tkn
-      console.log(this.token)
+      console.log(this)
+      this.Token = tkn
+      console.log('token: ' + this.Token)
       // TODO: get repository tree
       //       send RepositoryTree and SearchResult
+      this.getTree(this.Token)
+    },
+    getApi (path, func) {
+      axios.get(path).then((res) => {
+        func(res.data)
+      }).catch((err) => {
+        console.log(err)
+        console.log('path: ' + path)
+      })
+    },
+    getTree (token) {
+      if (token) {
+        this.AccessToken = 'access_token=' + token
+      }
+      this.getApi(this.RepositoryContents + '/?' + this.AccessToken, (data) => {
+        data.forEach((item) => {
+          this.makeTree(item, (node) => {
+            this.tree.push(node)
+          })
+        })
+      })
+    },
+    makeTree (node, func) {
+      let retTree = {
+        name: node.name,
+        content: '',
+        link: node.url,
+        nodes: []
+      }
+      if (node.type === 'file') {
+        if (node.name.endsWith('cpp')) {
+          // cppファイル以外は無視
+          this.getApi(node.download_url, (data) => {
+            retTree.content = data
+            func(retTree)
+          })
+        }
+      } else if (node.type === 'dir') {
+        this.getApi(node.url + '&' + this.AccessToken, (data) => {
+          data.forEach((item) => {
+            this.makeTree(item, (child) => {
+              retTree.nodes.push(child)
+            })
+          })
+          func(retTree)
+        })
+      }
     }
   }
 }
