@@ -1,7 +1,7 @@
 <template>
   <div>
-    <el-tree :data="treeData" :props="props" @node-click="nodeClick">
-    </el-tree>
+    <el-tree v-if="treeData.length" :data="treeData" :props="props" @node-click="nodeClick" />
+    <el-tree v-else :data="preTreeData" :props="props" />
   </div>
 </template>
 
@@ -9,7 +9,7 @@
 export default {
   data () {
     return {
-      treeData: [{
+      preTreeData: [{
         name: 'now loading',
         nodes: [{
           name: 'now loading',
@@ -23,10 +23,13 @@ export default {
       }
     }
   },
+  props: {
+    treeData: Array
+  },
   methods: {
     nodeClick (data) {
-      if (data.type === 'file') {
-        console.log('file dayo')
+      if (data.content && data.content.length) {
+        this.$emit('send-click-code', data.content)
       }
     },
     setTreeData (data) {

@@ -7,17 +7,12 @@
     <div class="el-container">
       <div id="sidebar" class="el-aside">
         sidebar dayo!
-        <repository-tree />
+        <repository-tree @send-click-code="setSourceCode" :tree-data="tree" />
       </div>
       <div id="main" class="el-main">
         <pre>
           <code class="language-cpp">
-            #include <bits/stdc++.h>
-            using namespace std;
-            int main() {
-              cout << "Hello World!" << endl;
-              return 0;
-            }
+            {{ sourceCode }}
           </code>
         </pre>
         <router-view/>
@@ -37,7 +32,8 @@ export default {
       Token: '',
       tree: [],
       RepositoryContents: 'https://api.github.com/repos/sekiya9311/CplusplusAlgorithmLibrary/contents',
-      AccessToken: ''
+      AccessToken: '',
+      sourceCode: 'int main{} {}'
     }
   },
   components: {
@@ -98,6 +94,10 @@ export default {
           func(retTree)
         })
       }
+    },
+    setSourceCode (code) {
+      this.sourceCode = code
+      console.log(this.sourceCode)
     }
   }
 }
