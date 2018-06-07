@@ -96,6 +96,7 @@ export default {
       }
     },
     setSourceCode (code) {
+      // jsで整形してるから更新情報キャッチできないの当たり前だね
       this.sourceCode = code
       console.log(this.sourceCode)
     }
