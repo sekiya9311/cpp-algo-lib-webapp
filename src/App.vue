@@ -10,12 +10,8 @@
         <repository-tree @send-click-code="setSourceCode" :tree-data="tree" />
       </div>
       <div id="main" class="el-main">
-        <pre>
-          <code class="language-cpp">
-            {{ sourceCode }}
-          </code>
-        </pre>
-        <router-view/>
+        <source-page :data="sourceData" />
+        <router-view />
       </div>
     </div>
   </div>
@@ -24,6 +20,7 @@
 <script>
 import InputTokenDialog from './components/InputTokenDialog'
 import RepositoryTree from './components/RepositoryTree'
+import SourcePage from './components/SourcePage'
 import axios from 'axios'
 export default {
   name: 'App',
@@ -33,12 +30,16 @@ export default {
       tree: [],
       RepositoryContents: 'https://api.github.com/repos/sekiya9311/CplusplusAlgorithmLibrary/contents',
       AccessToken: '',
-      sourceCode: 'int main{} {}'
+      sourceData: {
+        name: 'main',
+        content: 'int main() {}'
+      }
     }
   },
   components: {
     InputTokenDialog,
-    RepositoryTree
+    RepositoryTree,
+    SourcePage
   },
   methods: {
     getRepository (tkn) {
@@ -95,10 +96,9 @@ export default {
         })
       }
     },
-    setSourceCode (code) {
-      // jsで整形してるから更新情報キャッチできないの当たり前だね
-      this.sourceCode = code
-      console.log(this.sourceCode)
+    setSourceCode (data) {
+      this.sourceData = data
+      console.log(this.sourceData.content)
     }
   }
 }

@@ -4,10 +4,8 @@
       {{ data.name }}
     </div>
     <div class="source">
-      <pre>
-        <code class="language-cpp">
-          {{ data.content }}
-        </code>
+      <pre v-highlightjs="data.content">
+        <code class="cpp" />
       </pre>
     </div>
   </div>
@@ -23,4 +21,7 @@ export default {
 </script>
 
 <style>
+.source {
+  text-align: left
+}
 </style>

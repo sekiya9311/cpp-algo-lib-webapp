@@ -29,7 +29,7 @@ export default {
   methods: {
     nodeClick (data) {
       if (data.content && data.content.length) {
-        this.$emit('send-click-code', data.content)
+        this.$emit('send-click-code', data)
       }
     },
     setTreeData (data) {
