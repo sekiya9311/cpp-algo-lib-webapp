@@ -7,14 +7,11 @@ import 'element-ui/lib/theme-chalk/index.css'
 import App from './App'
 import router from './router'
 
-import 'prismjs'
-import 'prismjs/components/prism-clike.min'
-import 'prismjs/components/prism-c.min'
-import 'prismjs/components/prism-cpp.min'
-import 'prismjs/themes/prism.css'
+import VueHighlightJS from 'vue-highlightjs'
 
 Vue.config.productionTip = false
 
+Vue.use(VueHighlightJS)
 Vue.use(ElementUI, {locale})
 
 /* eslint-disable no-new */
