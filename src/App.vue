@@ -10,8 +10,9 @@
         <repository-tree @send-click-code="setSourceCode" :tree-data="tree" />
       </div>
       <div id="main" class="el-main">
-        <source-page :data="sourceData" />
-        <router-view />
+        <el-dialog title="Source Page" :visible.sync="sourcePageVisible">
+          <source-page :data="sourceData" />
+        </el-dialog>
       </div>
     </div>
   </div>
@@ -20,6 +21,7 @@
 <script>
 import InputTokenDialog from './components/InputTokenDialog'
 import RepositoryTree from './components/RepositoryTree'
+import SearchResults from './components/SearchResults'
 import SourcePage from './components/SourcePage'
 import axios from 'axios'
 export default {
@@ -33,13 +35,15 @@ export default {
       sourceData: {
         name: 'main',
         content: 'int main() {}'
-      }
+      },
+      sourcePageVisible: false
     }
   },
   components: {
     InputTokenDialog,
     RepositoryTree,
-    SourcePage
+    SourcePage,
+    SearchResults
   },
   methods: {
     getRepository (tkn) {
@@ -98,6 +102,13 @@ export default {
     },
     setSourceCode (data) {
       this.sourceData = data
+      this.sourcePageVisible = true
+      const foo = setInterval(() => {
+        if (document.getElementsByClassName('el-dialog__wrapper')[1].scrollTop) {
+          document.getElementsByClassName('el-dialog__wrapper')[1].scrollTop = 0
+        }
+        clearInterval(foo)
+      }, 10)
       console.log(this.sourceData.content)
     }
   }
