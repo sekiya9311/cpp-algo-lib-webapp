@@ -5,10 +5,11 @@
     </div>
     <div class="el-container">
       <div id="sidebar" class="el-aside">
-        sidebar dayo!
+        Library List
         <repository-tree @send-click-code="setSourceCode" :tree-data="tree" />
       </div>
       <div id="main" class="el-main">
+        <search-results />
         <el-dialog title="Source Page" :visible.sync="sourcePageVisible">
           <source-page :data="sourceData" />
         </el-dialog>
@@ -23,6 +24,7 @@ import RepositoryTree from './components/RepositoryTree'
 import SearchResults from './components/SearchResults'
 import SourcePage from './components/SourcePage'
 import axios from 'axios'
+import { Loading } from 'element-ui'
 export default {
   name: 'App',
   data () {
@@ -55,14 +57,18 @@ export default {
   },
   mounted: function() {
     const url = 'https://script.google.com/macros/s/AKfycbyJVBH-DZ-3d_rhj8tdVgvOFGqFYt43F9WA7B-8E-AlGOD5B6Y/exec'
+    let loading = Loading.service({ fullscreen: true })
     axios.get(url)
-         .then((res) => this.tree = res.data)
-         .catch((err) => {
+         .then((res) => {
+            this.tree = res.data
+            loading.close()
+         }).catch((err) => {
            console.log(err)
-           this.sourceData = {
+           this.tree = [{
              name: 'Error!',
              content: 'Error!'
-           }
+           }]
+           loading.close()
          })
   }
 }
