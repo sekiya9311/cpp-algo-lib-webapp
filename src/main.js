@@ -7,6 +7,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 import 'highlight.js/styles/default.css'
 import App from './App'
 import router from './router'
+import store from './vuex/store'
 
 import VueHighlightJS from 'vue-highlightjs'
 
@@ -19,6 +20,7 @@ Vue.use(ElementUI, {locale})
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })
