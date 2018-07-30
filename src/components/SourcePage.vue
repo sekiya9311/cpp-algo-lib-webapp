@@ -21,9 +21,10 @@
 <script>
 export default {
   data () {
-    return {}
+    return {
+      data: this.$store.state.displaySourceData
+    }
   },
-  props: ['data'],
   methods: {
     sourceCopy () {
       window.getSelection().removeAllRanges()

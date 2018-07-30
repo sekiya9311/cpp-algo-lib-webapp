@@ -6,12 +6,12 @@
     <div class="el-container">
       <div id="sidebar" class="el-aside">
         Library List
-        <repository-tree @send-click-code="setSourceCode" :tree-data="tree" />
+        <repository-tree @send-click-code="displayCode" />
       </div>
       <div id="main" class="el-main">
         <search-results />
         <el-dialog title="Source Page" :visible.sync="sourcePageVisible">
-          <source-page :data="sourceData" />
+          <source-page />
         </el-dialog>
       </div>
     </div>
@@ -19,7 +19,6 @@
 </template>
 
 <script>
-import InputTokenDialog from './components/InputTokenDialog'
 import RepositoryTree from './components/RepositoryTree'
 import SearchResults from './components/SearchResults'
 import SourcePage from './components/SourcePage'
@@ -29,11 +28,6 @@ export default {
   name: 'App',
   data () {
     return {
-      tree: [],
-      sourceData: {
-        name: 'main',
-        content: 'int main() {}'
-      },
       sourcePageVisible: false
     }
   },
@@ -43,8 +37,7 @@ export default {
     SearchResults
   },
   methods: {
-    setSourceCode (data) {
-      this.sourceData = data
+    displayCode () {
       this.sourcePageVisible = true
       const id = setInterval(() => {
         let dlgDom = document.getElementsByClassName('el-dialog__wrapper')
@@ -52,24 +45,23 @@ export default {
           dlgDom[0].scrollTop = 0
           clearInterval(id)
         }
-      }, 10);
+      }, 10)
     }
   },
-  mounted: function() {
+  mounted: function () {
     const url = 'https://script.google.com/macros/s/AKfycbyJVBH-DZ-3d_rhj8tdVgvOFGqFYt43F9WA7B-8E-AlGOD5B6Y/exec'
     let loading = Loading.service({ fullscreen: true })
-    axios.get(url)
-         .then((res) => {
-            this.tree = res.data
-            loading.close()
-         }).catch((err) => {
-           console.log(err)
-           this.tree = [{
-             name: 'Error!',
-             content: 'Error!'
-           }]
-           loading.close()
-         })
+    axios.get(url).then((res) => {
+      res.data.forEach(el => this.$store.state.tree.push(el))
+      loading.close()
+    }).catch((err) => {
+      console.log(err)
+      this.$store.state.tree.push({
+        name: 'Error!',
+        content: 'Error!'
+      })
+      loading.close()
+    })
   }
 }
 </script>

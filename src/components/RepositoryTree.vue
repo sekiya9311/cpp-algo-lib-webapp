@@ -20,20 +20,17 @@ export default {
       props: {
         children: 'nodes',
         label: 'name'
-      }
+      },
+      treeData: this.$store.state.tree
     }
-  },
-  props: {
-    treeData: Array
   },
   methods: {
     nodeClick (data) {
       if (data.content && data.content.length) {
-        this.$emit('send-click-code', data)
+        this.$store.state.displaySourceData.name = data.name
+        this.$store.state.displaySourceData.content = data.content
+        this.$emit('send-click-code')
       }
-    },
-    setTreeData (data) {
-      this.treeData = data
     }
   }
 }
