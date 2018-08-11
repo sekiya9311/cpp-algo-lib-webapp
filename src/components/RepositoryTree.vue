@@ -7,7 +7,7 @@
 
 <script>
 import {
-  SET_DISPLAT_SOURCE_DATA
+  SET_DISPLAY_SOURCE_DATA
 } from '../vuex/mutation-type'
 export default {
   data () {
@@ -30,7 +30,7 @@ export default {
   methods: {
     nodeClick (data) {
       if (data.content && data.content.length) {
-        this.$store.commit(SET_DISPLAT_SOURCE_DATA, data)
+        this.$store.commit(SET_DISPLAY_SOURCE_DATA, data)
         this.$emit('send-click-code')
       }
     }

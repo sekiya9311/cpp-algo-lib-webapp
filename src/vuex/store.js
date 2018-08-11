@@ -6,7 +6,7 @@ import {
   ADD_TREE,
   ADD_RANGE_TREE,
   CLEAR_TREE,
-  SET_DISPLAT_SOURCE_DATA,
+  SET_DISPLAY_SOURCE_DATA,
   SET_TREE
 } from './mutation-type'
 
@@ -35,8 +35,9 @@ export default new Vuex.Store({
     [CLEAR_TREE]: state => {
       state.tree = []
     },
-    [SET_DISPLAT_SOURCE_DATA]: (state, data) => {
-      state.displaySourceData = data
+    [SET_DISPLAY_SOURCE_DATA]: (state, data) => {
+      state.displaySourceData.name = data.name
+      state.displaySourceData.content = data.content
     }
   },
   actions: {
