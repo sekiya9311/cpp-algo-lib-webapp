@@ -22,7 +22,7 @@
 export default {
   data () {
     return {
-      data: this.$store.state.displaySourceData
+      data: this.$store.getters.getDisplaySourceData
     }
   },
   methods: {

@@ -6,6 +6,9 @@
 </template>
 
 <script>
+import {
+  SET_DISPLAT_SOURCE_DATA
+} from '../vuex/mutation-type'
 export default {
   data () {
     return {
@@ -21,14 +24,13 @@ export default {
         children: 'nodes',
         label: 'name'
       },
-      treeData: this.$store.state.tree
+      treeData: this.$store.getters.getTree
     }
   },
   methods: {
     nodeClick (data) {
       if (data.content && data.content.length) {
-        this.$store.state.displaySourceData.name = data.name
-        this.$store.state.displaySourceData.content = data.content
+        this.$store.commit(SET_DISPLAT_SOURCE_DATA, data)
         this.$emit('send-click-code')
       }
     }

@@ -22,8 +22,11 @@
 import RepositoryTree from './components/RepositoryTree'
 import SearchResults from './components/SearchResults'
 import SourcePage from './components/SourcePage'
-import axios from 'axios'
 import { Loading } from 'element-ui'
+import {
+  ADD_TREE,
+  SET_TREE
+} from './vuex/mutation-type'
 export default {
   name: 'App',
   data () {
@@ -49,14 +52,12 @@ export default {
     }
   },
   mounted: function () {
-    const url = 'https://script.google.com/macros/s/AKfycbyJVBH-DZ-3d_rhj8tdVgvOFGqFYt43F9WA7B-8E-AlGOD5B6Y/exec'
     let loading = Loading.service({ fullscreen: true })
-    axios.get(url).then((res) => {
-      res.data.forEach(el => this.$store.state.tree.push(el))
+    this.$store.dispatch(SET_TREE).then(() => {
       loading.close()
-    }).catch((err) => {
+    }).catch(err => {
       console.log(err)
-      this.$store.state.tree.push({
+      this.$store.commit(ADD_TREE, {
         name: 'Error!',
         content: 'Error!'
       })
