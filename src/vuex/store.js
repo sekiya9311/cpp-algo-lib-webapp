@@ -65,6 +65,25 @@ export default new Vuex.Store({
     },
     getDisplaySourceData: state => {
       return state.displaySourceData
+    },
+    searchLibraries: state => word => {
+      let ret = []
+      let stk = []
+      if (word.length === 0) {
+        return ret
+      }
+      state.tree.forEach(d => stk.push(d))
+      while (stk.length > 0) {
+        let el = stk[stk.length - 1]
+        stk.pop()
+        if (el.content.length && el.name.indexOf(word) > -1) {
+          ret.push(el)
+        } else if (el.content.indexOf(word) > -1) {
+          ret.push(el)
+        }
+        el.nodes.forEach(d => stk.push(d))
+      }
+      return ret
     }
   }
 })

@@ -13,25 +13,25 @@ import SearchResult from '@/components/SearchResult'
 export default {
   data () {
     return {
-      searchResultNodes: [],
-      allData: []
+      searchResultLibs: []
     }
   },
+  props: ['searchWord'],
   components: {
     SearchResult
   },
   methods: {
-    setAllData (data) {
-      this.allData = data
-    }
   },
   computed: {
     getResults () {
+      let searchResultLibs = this.$store.getters.searchLibraries(this.searchWord)
       const colLength = 4
       let dataArray2D = []
-      for (let i = 0; i < this.searchResultNodes.length; i++) {
-        dataArray2D.push(this.searchResultNodes.slice(i, i + colLength))
-        i += colLength
+      if (searchResultLibs) {
+        for (let i = 0; i < searchResultLibs.length; i++) {
+          dataArray2D.push(searchResultLibs.slice(i, i + colLength))
+          i += colLength
+        }
       }
       return dataArray2D.length ? dataArray2D : [[{name: 'empty', content: 'no results;'}]]
     }

@@ -2,6 +2,7 @@
   <div id="app" class="el-container is-vertical">
     <div id="header" class="el-header">
       header dayo!
+      <el-input v-model="searchWord" />
     </div>
     <div class="el-container">
       <div id="sidebar" class="el-aside">
@@ -9,7 +10,7 @@
         <repository-tree @send-click-code="displayCode" />
       </div>
       <div id="main" class="el-main">
-        <search-results />
+        <search-results :search-word="searchWord" />
         <el-dialog title="Source Page" :visible.sync="sourcePageVisible">
           <source-page />
         </el-dialog>
@@ -31,7 +32,9 @@ export default {
   name: 'App',
   data () {
     return {
-      sourcePageVisible: false
+      sourcePageVisible: false,
+      searchWord: '',
+      searchResultLibs: []
     }
   },
   components: {
@@ -51,7 +54,7 @@ export default {
       }, 10)
     }
   },
-  mounted: function () {
+  mounted () {
     let loading = Loading.service({ fullscreen: true })
     this.$store.dispatch(SET_TREE).then(() => {
       loading.close()
@@ -63,6 +66,8 @@ export default {
       })
       loading.close()
     })
+  },
+  computed: {
   }
 }
 </script>
