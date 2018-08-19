@@ -1,13 +1,11 @@
 <template>
-  <div>
+  <div class="search-result">
     <div class="title">
       {{ data.name }}
     </div>
     <div class="source">
-      <pre>
-        <code class="language-cpp">
-          {{ data.content }}
-        </code>
+      <pre v-highlightjs="data.content">
+        <code class="cpp" />
       </pre>
     </div>
   </div>

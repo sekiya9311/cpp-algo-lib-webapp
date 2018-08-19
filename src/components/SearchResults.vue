@@ -1,9 +1,13 @@
 <template>
   <div>
     <div class="row" v-for="(rows, key, idx) in getResults" :key="idx">
-      <div class="columns" v-for="(data, key, idx) in rows" :key="idx">
-        <search-result :data="data" />
-      </div>
+      <el-row :gutter="10">
+        <div class="columns" v-for="(data, key, idx) in rows" :key="idx">
+          <el-col :span="10">
+            <search-result :data="data" />
+          </el-col>
+        </div>
+      </el-row>
     </div>
   </div>
 </template>
