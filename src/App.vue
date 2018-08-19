@@ -1,7 +1,7 @@
 <template>
   <div id="app" class="el-container is-vertical">
     <div id="header" class="el-header">
-      header dayo!
+      競技プログラミング用C++ライブラリ by sekiya9311
       <el-input v-model="searchWord" />
     </div>
     <div class="el-container">
