@@ -1,21 +1,29 @@
 <template>
-  <div id="app" class="el-container is-vertical">
-    <div id="header" class="el-header">
-      競技プログラミング用C++ライブラリ by sekiya9311
-      <el-input v-model="searchWord" />
-    </div>
-    <div class="el-container">
-      <div id="sidebar" class="el-aside">
-        Library List
+  <div id="app">
+    <el-container>
+      <el-header>
+        <span class="title">
+          競技プログラミング用C++ライブラリ by sekiya9311
+        </span>
+      </el-header>
+    <el-container>
+      <el-aside>
+        <span class="el-search-text">
+          <el-input v-model="searchWord" placeholder="Search" />
+        </span>
+        <span>
+          Library List
+        </span>
         <repository-tree @send-click-code="displayCode" />
-      </div>
-      <div id="main" class="el-main">
+      </el-aside>
+      <el-main>
         <search-results :search-word="searchWord" />
-        <el-dialog :title="sourceData.name" :visible.sync="sourcePageVisible">
-          <source-page />
-        </el-dialog>
-      </div>
-    </div>
+          <el-dialog :title="sourceData.name" :visible.sync="sourcePageVisible">
+            <source-page />
+          </el-dialog>
+        </el-main>
+      </el-container>
+    </el-container>
   </div>
 </template>
 
@@ -75,7 +83,7 @@ export default {
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -84,5 +92,9 @@ export default {
 }
 .el-aside {
   width: 250px;
+}
+.el-header {
+  display: flex;
+  margin: auto;
 }
 </style>
