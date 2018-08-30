@@ -1,10 +1,5 @@
 <template>
   <div>
-    <div class="title">
-      <span>
-        {{ data.name }}
-      </span>
-    </div>
     <div class="btn-div">
       <el-button v-on:click="sourceCopy" v-bind:disabled="!this.data.content">
         Copy

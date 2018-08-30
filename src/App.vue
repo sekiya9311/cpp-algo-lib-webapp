@@ -11,7 +11,7 @@
       </div>
       <div id="main" class="el-main">
         <search-results :search-word="searchWord" />
-        <el-dialog title="Source Page" :visible.sync="sourcePageVisible">
+        <el-dialog :title="sourceData.name" :visible.sync="sourcePageVisible">
           <source-page />
         </el-dialog>
       </div>
@@ -34,7 +34,8 @@ export default {
     return {
       sourcePageVisible: false,
       searchWord: '',
-      searchResultLibs: []
+      searchResultLibs: [],
+      sourceData: this.$store.getters.getDisplaySourceData
     }
   },
   components: {
