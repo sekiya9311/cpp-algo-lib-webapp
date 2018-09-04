@@ -53,9 +53,12 @@ export default {
 
 <style>
 .source {
-  text-align: left
+  text-align: left;
 }
 .btn-div {
-  text-align: right
+  text-align: right;
+}
+.cpp {
+  height: 500px;
 }
 </style>
