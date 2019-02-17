@@ -4,7 +4,7 @@ function doGet() {
   const url = RepositoryAddress + '/?access_token=' + AccessToken;
   var res = JSON.parse(UrlFetchApp.fetch(url).getContentText());
   var tree = [];
-  
+
   for (var i = 0; i < res.length; i++) {
     var node = res[i];
     var ret = makeTree(node, AccessToken);
@@ -26,6 +26,10 @@ function makeTree(data, AccessToken) {
     nodes: []
   };
   if (data.type === 'dir') {
+    if (data.name === 'test') {
+      // for test dir
+      return null;
+    }
     const url = data.url + '&' + 'access_token=' + AccessToken;
     var res = JSON.parse(UrlFetchApp.fetch(url).getContentText());
     for (var i = 0; i < res.length; i++) {
