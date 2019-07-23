@@ -1,17 +1,17 @@
-const pkg = require('./package')
+import NuxtConfiguration from '@nuxt/config'
 
-module.exports = {
+const config: NuxtConfiguration = {
   mode: 'spa',
 
   /*
   ** Headers of the page
   */
   head: {
-    title: pkg.name,
+    title: 'C++ Algorithm Library By sekiya9311',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: pkg.description }
+      { hid: 'description', name: 'description', content: 'C++ Algorithm Library By sekiya9311' }
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
   },
@@ -46,6 +46,7 @@ module.exports = {
     extend(config, ctx) {
       // Run ESLint on save
       if (ctx.isDev && ctx.isClient) {
+        if (!config.module) return;
         config.module.rules.push({
           enforce: 'pre',
           test: /\.(js|vue)$/,
@@ -56,3 +57,5 @@ module.exports = {
     }
   }
 }
+
+export default config
