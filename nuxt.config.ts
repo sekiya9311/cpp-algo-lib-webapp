@@ -3,6 +3,8 @@ import NuxtConfiguration from '@nuxt/config'
 const config: NuxtConfiguration = {
   mode: 'spa',
 
+  srcDir: './src/',
+
   /*
   ** Headers of the page
   */
