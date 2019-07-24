@@ -24,12 +24,17 @@ const config: NuxtConfiguration = {
   /*
   ** Global CSS
   */
-  css: ['~/assets/css/tailwind.css'],
+  css: [
+    '~/assets/css/tailwind.css',
+    '@fortawesome/fontawesome-svg-core/styles.css'
+  ],
 
   /*
   ** Plugins to load before mounting the App
   */
-  plugins: [],
+  plugins: [
+    '~/plugins/fontawesome.ts'
+  ],
 
   /*
   ** Nuxt.js modules
