@@ -1,11 +1,23 @@
 <template>
   <section class="container">
-    nyaa
+    {{ data }}
   </section>
 </template>
 
-<script>
-export default {}
+<script lang="ts">
+import Vue from 'vue'
+
+export default Vue.extend({
+  data() {
+    return {
+      data: ''
+    }
+  },
+  mounted: async function() {
+    const res = await fetch('./.netlify/functions/nyaa')
+    this.data = await res.text()
+  }
+})
 </script>
 
 <style>

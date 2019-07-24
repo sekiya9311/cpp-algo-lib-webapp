@@ -41,7 +41,17 @@ const config: NuxtConfiguration = {
   /*
   ** Nuxt.js modules
   */
-  modules: ['@nuxtjs/pwa'],
+  modules: [
+    '@nuxtjs/pwa',
+    '@nuxtjs/proxy'
+  ],
+
+  proxy: {
+    '/.netlify/': {
+      target: 'http://localhost:9000',
+      pathRewrite: {'^/.netlify/.lambda': ''}
+    }
+  },
 
   /*
   ** Build configuration
