@@ -43,7 +43,8 @@ const config: NuxtConfiguration = {
   */
   modules: [
     '@nuxtjs/pwa',
-    '@nuxtjs/proxy'
+    '@nuxtjs/proxy',
+    '@nuxtjs/vuetify'
   ],
 
   proxy: {
