@@ -5,7 +5,6 @@ export enum TreeType {
 }
 
 export interface TreeNode {
-  isOpen: boolean
   title: String
   sourceCode: String
   children: TreeNode[]
