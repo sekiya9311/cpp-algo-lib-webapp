@@ -43,10 +43,8 @@ export default Vue.extend({
       const curId = this.nodeCount++
       return {
         id: curId,
-        title: node.title,
-        sourceCode: node.sourceCode,
-        children: node.children.map(this.decorate),
-        type: node.type
+        ...node,
+        children: node.children.map(this.decorate)
       }
     },
     getNode(id: number, currentNode?: DecorateTreeNode): DecorateTreeNode | null {
