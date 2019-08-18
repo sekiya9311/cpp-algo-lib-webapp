@@ -8,7 +8,7 @@
 
 <script lang="ts">
 import Vue, { PropType } from 'vue'
-import { TreeNode, TreeType } from '../types/TreeNode'
+import { TreeNode, TreeType, INITIAL_TREE_NODE } from '../types/TreeNode'
 
 export interface DecorateTreeNode extends TreeNode {
   id: number
@@ -62,12 +62,7 @@ export default Vue.extend({
   },
   watch: {
     selectedNode() {
-      const selectedTreeNode = this.selectedNode || ({
-        title: '',
-        sourceCode: '',
-        children: [],
-        type: TreeType.leaf
-      } as TreeNode)
+      const selectedTreeNode = this.selectedNode || INITIAL_TREE_NODE
 
       this.onSelected(selectedTreeNode)
     }
