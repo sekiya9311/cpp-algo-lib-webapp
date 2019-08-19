@@ -1,28 +1,30 @@
 <template>
   <div>
-    <strong>
-      {{title}}
-    </strong>
-    <v-btn @click="this.clickCopyButton">
-      <v-icon left>file_copy</v-icon> Copy
-    </v-btn>
-    <pre class="hljs cpp">
-      <code>
-        {{sourceCode}}
-      </code>
-    </pre>
+    <div>
+      <strong>
+        {{title}}
+      </strong>
+      <v-btn @click="this.clickCopyButton">
+        <v-icon left dark>file-copy</v-icon> Copy
+      </v-btn>
+    </div>
+    <div>
+      <pre class="hljs">
+        <code v-html="highlightedSourceCode" />
+      </pre>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import Vue, { PropType } from 'vue'
-import { TreeNode } from '../types/TreeNode'
+import Vue from 'vue'
+import hljs from 'highlight.js' // NOT TYPE SAFE !! 😠
 
 export default Vue.extend({
   props: {
     title: String,
     sourceCode: String,
-    onCopy: Function as PropType<(success: boolean) => void>
+    onCopy: Function // NOT TYPE SAFE !! 😠
   },
   methods: {
     clickCopyButton() {
@@ -44,10 +46,14 @@ export default Vue.extend({
 
       return functionSupported
     }
+  },
+  computed: {
+    highlightedSourceCode(): String {
+      return hljs.highlightAuto(this.sourceCode, ['cpp']).value
+    }
   }
 })
 </script>
 
 <style scoped>
-
 </style>
