@@ -19,7 +19,9 @@
     "@fortawesome/free-brands-svg-icons": "^5.9.0",
     "@fortawesome/vue-fontawesome": "^0.1.6",
     "@nuxtjs/pwa": "^2.6.0",
+    "@types/dotenv": "^6.1.1",
     "cross-env": "^5.2.0",
+    "dotenv": "^8.1.0",
     "highlight.js": "^9.15.9",
     "nuxt": "^2.4.0",
     "ts-node": "^8.3.0"
