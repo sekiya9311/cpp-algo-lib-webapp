@@ -1,15 +1,13 @@
 import { Handler, Context, Callback, APIGatewayEvent } from 'aws-lambda'
 import { TreeNode, TreeType } from '../src/types/TreeNode'
 import dotenv from 'dotenv'
-import NodeFetch from 'node-fetch'
+import axios from 'axios'
 
 interface LibrariesResponse {
   statusCode: Number,
   headers: { 'Content-Type': string }
   body: String
 }
-
-const myFetch = (typeof fetch === 'function') ? fetch : NodeFetch
 
 export const handler: Handler = async (
   event: APIGatewayEvent,
@@ -62,7 +60,7 @@ if (isDirectory) {
   res.type = TreeType.internal
 
 } else if (isCppFile) {
-  res.sourceCode = await (await myFetch(data.download_url)).text()
+  res.sourceCode = JSON.stringify((await axios.get(data.download_url)).data)
   res.type = TreeType.leaf
 
 } else {
@@ -73,7 +71,7 @@ if (isDirectory) {
 }
 
 async function getChildren(url: string): Promise<TreeNode[]> {
-  const fetchData = await (await myFetch(url)).json() as []
+  const fetchData = (await axios.get(url)).data as []
   const res = (await Promise.all(
     fetchData.map(async e => await makeTree(e))
   )).filter(e => e) as TreeNode[]
