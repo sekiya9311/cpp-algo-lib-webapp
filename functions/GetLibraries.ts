@@ -54,18 +54,18 @@ async function makeTree(data: any): Promise<TreeNode | null> {
 
   if (isDirectory && data.name === 'test') { return null }
 
-if (isDirectory) {
-  const url = `${data.url}&access_token=${process.env.GITHUB_API_KEY}`
-  res.children = await getChildren(url)
-  res.type = TreeType.internal
+  if (isDirectory) {
+    const url = `${data.url}&access_token=${process.env.GITHUB_API_KEY}`
+    res.children = await getChildren(url)
+    res.type = TreeType.internal
 
-} else if (isCppFile) {
-  res.sourceCode = JSON.stringify((await axios.get(data.download_url)).data)
-  res.type = TreeType.leaf
+  } else if (isCppFile) {
+    res.sourceCode = JSON.stringify((await axios.get(data.download_url)).data)
+    res.type = TreeType.leaf
 
-} else {
-  return null
-}
+  } else {
+    return null
+  }
 
   return res
 }
