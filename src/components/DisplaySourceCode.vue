@@ -32,7 +32,11 @@ export default Vue.extend({
       this.onCopy(success)
     },
     copy(source: string): boolean {
-      window.getSelection().removeAllRanges()
+      const selection = window.getSelection()
+      if (!selection) {
+        return false
+      }
+      selection.removeAllRanges()
 
       const tmpTxtArea = document.createElement('textarea')
       tmpTxtArea.textContent = source
