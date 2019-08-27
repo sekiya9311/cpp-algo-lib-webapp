@@ -58,11 +58,11 @@ const mutations: MyMutations = {
 }
 
 const actions: MyActions = {
-  setTree: async context => {
+  setTree: async ({ commit }) => {
     const Url = './.netlify/functions/GetLibraries'
     const res = await fetch(Url)
     const obj = (await res.json()) as TreeNode[]
-    context.commit(mutations.setRootNode.name, { rootChildren: obj })
+    commit(mutations.setRootNode.name, { rootChildren: obj })
   }
 }
 
