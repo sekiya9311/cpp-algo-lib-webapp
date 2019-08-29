@@ -1,9 +1,15 @@
 <template>
   <a :href="this.url" :style="{fontSize: fontSize}" target="__blank">
-    <font-awesome-icon :icon="this.icon" />
-    <small>
-      {{this.detail}}
-    </small>
+    <div>
+      <div>
+        <font-awesome-icon :icon="this.icon" />
+      </div>
+      <div>
+        <small>
+          {{this.detail}}
+        </small>
+      </div>
+    </div>
   </a>
 </template>
 
@@ -28,5 +34,15 @@ export default Vue.extend({
 <style scoped>
 a {
   text-decoration: none;
+  display: inline-block;
+}
+
+a > div {
+  text-align: center;
+}
+
+a > div > * {
+  margin-top: -0.7em;
+  margin-bottom: -0.7em;
 }
 </style>
