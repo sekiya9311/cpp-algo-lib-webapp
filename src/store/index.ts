@@ -1,16 +1,23 @@
 import { Store, GetterTree, ActionTree, MutationTree, ActionContext } from 'vuex'
 import { TreeNode, INITIAL_TREE_NODE, TreeType } from '../types/TreeNode'
+import { AlertType } from '../types/AlertType';
+
+const SHOW_ALERT_MSEC = 2000
 
 export interface State {
   root: TreeNode
   showDialog: boolean
   dialogMessage: string
+  alertType: AlertType | null
+  alertMessage: string
 }
 
 export interface MyGetters extends GetterTree<State, any> {
   root: (state: State) => TreeNode,
   showDialog: (state: State) => boolean,
   dialogMessage: (state: State) => string,
+  alertType: (state: State) => AlertType | null,
+  alertMessage: (state: State) => string,
   nodeArray: (state: State) => TreeNode[],
   filteredNodeArray: (state: State) => (searchWord: string) => TreeNode[]
 }
@@ -22,14 +29,17 @@ export interface MyActions extends ActionTree<State, any> {
 export interface MyMutations extends MutationTree<State> {
   setRootNode: (state: State, payload: { rootChildren: TreeNode[] }) => void,
   setDialogMessage: (state: State, payload: { message: string }) => void,
-  setShowDialogFlag: (state: State, payload: { showDialog: boolean }) => void
+  setShowDialogFlag: (state: State, payload: { showDialog: boolean }) => void,
+  showAlert: (state: State, payload: { alertType: AlertType | null, message: string }) => void
 }
 
 
 const state = (): State => ({
   root: INITIAL_TREE_NODE,
   showDialog: false,
-  dialogMessage: ''
+  dialogMessage: '',
+  alertType: null,
+  alertMessage: ''
 })
 
 const flatTreeNodes = (node: TreeNode): TreeNode[] => {
@@ -45,6 +55,8 @@ const getters: MyGetters = {
   root: (state: State) => state.root,
   showDialog: (state: State) => state.showDialog,
   dialogMessage: (state: State) => state.dialogMessage,
+  alertType: (state: State) => state.alertType,
+  alertMessage: (state: State) => state.alertMessage,
   nodeArray: state => flatTreeNodes(state.root),
   filteredNodeArray: state => searchWord => (
     // dry か 型 かで型を取りました
@@ -70,6 +82,15 @@ const mutations: MyMutations = {
   },
   setDialogMessage: (state, { message }) => {
     state.dialogMessage = message
+  },
+  showAlert: (state, { alertType, message }) => {
+    if (alertType == null) return
+    state.alertType = alertType
+    state.alertMessage = message
+    setTimeout(() => {
+      state.alertType = null
+      state.alertMessage = ''
+    }, SHOW_ALERT_MSEC)
   }
 }
 
