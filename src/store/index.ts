@@ -3,10 +3,14 @@ import { TreeNode, INITIAL_TREE_NODE, TreeType } from '../types/TreeNode'
 
 export interface State {
   root: TreeNode
+  showDialog: boolean
+  dialogMessage: string
 }
 
 export interface MyGetters extends GetterTree<State, any> {
   root: (state: State) => TreeNode,
+  showDialog: (state: State) => boolean,
+  dialogMessage: (state: State) => string,
   nodeArray: (state: State) => TreeNode[],
   filteredNodeArray: (state: State) => (searchWord: string) => TreeNode[]
 }
@@ -16,12 +20,16 @@ export interface MyActions extends ActionTree<State, any> {
 }
 
 export interface MyMutations extends MutationTree<State> {
-  setRootNode: (state: State, payload: { rootChildren: TreeNode[] }) => void
+  setRootNode: (state: State, payload: { rootChildren: TreeNode[] }) => void,
+  setDialogMessage: (state: State, payload: { message: string }) => void,
+  setShowDialogFlag: (state: State, payload: { showDialog: boolean }) => void
 }
 
 
 const state = (): State => ({
-  root: INITIAL_TREE_NODE
+  root: INITIAL_TREE_NODE,
+  showDialog: false,
+  dialogMessage: ''
 })
 
 const flatTreeNodes = (node: TreeNode): TreeNode[] => {
@@ -35,6 +43,8 @@ const flatTreeNodes = (node: TreeNode): TreeNode[] => {
 
 const getters: MyGetters = {
   root: (state: State) => state.root,
+  showDialog: (state: State) => state.showDialog,
+  dialogMessage: (state: State) => state.dialogMessage,
   nodeArray: state => flatTreeNodes(state.root),
   filteredNodeArray: state => searchWord => (
     // dry か 型 かで型を取りました
@@ -54,6 +64,12 @@ const mutations: MyMutations = {
       children: rootChildren,
       type: TreeType.internal
     }
+  },
+  setShowDialogFlag: (state, { showDialog }) => {
+    state.showDialog = showDialog
+  },
+  setDialogMessage: (state, { message }) => {
+    state.dialogMessage = message
   }
 }
 
