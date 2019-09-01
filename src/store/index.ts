@@ -28,8 +28,7 @@ export interface MyActions extends ActionTree<State, any> {
 
 export interface MyMutations extends MutationTree<State> {
   setRootNode: (state: State, payload: { rootChildren: TreeNode[] }) => void,
-  setDialogMessage: (state: State, payload: { message: string }) => void,
-  setShowDialogFlag: (state: State, payload: { showDialog: boolean }) => void,
+  showDialog: (state: State, payload: { showDialog: boolean, message: string }) => void,
   showAlert: (state: State, payload: { alertType: AlertType | null, message: string }) => void
 }
 
@@ -77,11 +76,9 @@ const mutations: MyMutations = {
       type: TreeType.internal
     }
   },
-  setShowDialogFlag: (state, { showDialog }) => {
+  showDialog: (state, { showDialog, message }) => {
     state.showDialog = showDialog
-  },
-  setDialogMessage: (state, { message }) => {
-    state.dialogMessage = message
+    state.alertMessage = message
   },
   showAlert: (state, { alertType, message }) => {
     if (alertType == null) return
