@@ -39,7 +39,7 @@ export default Vue.extend({
       selection.removeAllRanges()
 
       const tmpTxtArea = document.createElement('textarea')
-      tmpTxtArea.textContent = source
+      tmpTxtArea.textContent = this.fixedSourceCode
 
       document.body.appendChild(tmpTxtArea)
       tmpTxtArea.select()
@@ -52,8 +52,18 @@ export default Vue.extend({
     }
   },
   computed: {
-    highlightedSourceCode(): String {
-      return hljs.highlightAuto(this.sourceCode, ['cpp']).value
+    fixedSourceCode(): string {
+      // TODO: Why escaped newline & enclosed double quote ???
+      const res = this.sourceCode
+        .split('\\r\\n').join('\r\n')
+        .split('\\n').join('\n')
+      return res.substring(1, res.length - 1)
+    },
+    highlightedSourceCode(): string {
+      return hljs.highlightAuto(
+        this.fixedSourceCode,
+        ['cpp']
+      ).value
     }
   }
 })
