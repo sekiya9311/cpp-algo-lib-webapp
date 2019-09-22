@@ -10,11 +10,11 @@
         <icon-link detail="Library"
                   :url="this.libraryRepositoryUrl"
                   :icon="this.icon"
-                  fontSize="1em" />
+                  fontSize="1.5rem" />
         <icon-link detail="This"
                   :url="this.serviceRepositoryUrl"
                   :icon="this.icon"
-                  fontSize="1em" />
+                  fontSize="1.5rem" />
       </h2>
     </div>
   </header>
