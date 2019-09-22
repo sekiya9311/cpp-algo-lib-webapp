@@ -50,7 +50,7 @@ const mutations: MyMutations = {
     state.alertMessage = message
   },
   showAlert: (state, { alertType, message }) => {
-    if (alertType == null) return
+    if (alertType === null) return
     state.alertType = alertType
     state.alertMessage = message
     setTimeout(() => {
