@@ -1,7 +1,8 @@
 <template>
   <v-treeview
-    :items="root.children"
+    :items="decorateRootNode.children"
     :active.sync="selectedId"
+    item-text="title"
     open-on-click
     activatable />
 </template>
@@ -22,20 +23,17 @@ export default Vue.extend({
   },
   data() {
     return {
-      root: {
-        children: [] as DecorateTreeNode[]
-      } as DecorateTreeNode,
       nodeCount: 0,
       selectedId: [] as number[]
     }
-  },
-  mounted() {
-    this.root = this.decorate(this.rootNode)
   },
   computed: {
     selectedNode(): DecorateTreeNode | null {
       const id = this.selectedId.length ? this.selectedId[0] : -1
       return this.getNode(id)
+    },
+    decorateRootNode(): DecorateTreeNode {
+      return this.decorate(this.rootNode)
     }
   },
   methods: {
@@ -48,7 +46,7 @@ export default Vue.extend({
       }
     },
     getNode(id: number, currentNode?: DecorateTreeNode): DecorateTreeNode | null {
-      currentNode = currentNode || this.root
+      currentNode = currentNode || this.decorateRootNode
 
       if (id === currentNode.id) {
         return currentNode
