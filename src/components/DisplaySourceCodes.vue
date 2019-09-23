@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import Vue, { PropType } from 'vue'
 import DisplaySourceCode from './DisplaySourceCode.vue'
 import { TreeNode } from '../types/TreeNode'
 
@@ -22,21 +22,19 @@ export default Vue.extend({
     DisplaySourceCode
   },
   props: {
-    searchWord: String
+    nodeArray: Object as PropType<TreeNode[]>
   },
   computed: {
     filteredNodeArrayForDisplay(): TreeNode[][] {
       const COL_LENGTH_EVERY_ROW = 2
-      const nodeArray = this.$store.getters
-        .filteredNodeArray(this.searchWord) as TreeNode[]
       const res: TreeNode[][] = []
       const rowLength =
-        (nodeArray.length + COL_LENGTH_EVERY_ROW - 1) / COL_LENGTH_EVERY_ROW
+        (this.nodeArray.length + COL_LENGTH_EVERY_ROW - 1) / COL_LENGTH_EVERY_ROW
       for (let i = 0; i < rowLength; i++) {
         const cur: TreeNode[] = []
         for (let j = 0; j < COL_LENGTH_EVERY_ROW &&
-                        i * COL_LENGTH_EVERY_ROW + j < nodeArray.length; j++) {
-          cur.push(nodeArray[i * COL_LENGTH_EVERY_ROW + j])
+                        i * COL_LENGTH_EVERY_ROW + j < this.nodeArray.length; j++) {
+          cur.push(this.nodeArray[i * COL_LENGTH_EVERY_ROW + j])
         }
         res.push(cur)
       }
