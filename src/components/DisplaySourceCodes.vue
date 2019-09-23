@@ -22,7 +22,7 @@ export default Vue.extend({
     DisplaySourceCode
   },
   props: {
-    nodeArray: Object as PropType<TreeNode[]>
+    nodeArray: Array as PropType<TreeNode[]>
   },
   computed: {
     filteredNodeArrayForDisplay(): TreeNode[][] {
