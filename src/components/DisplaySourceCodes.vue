@@ -6,7 +6,7 @@
           :title="cell.title"
           :sourceCode="cell.sourceCode"
           :onCopy="copied"
-          class="w-1/2" />
+          class="" />
       </v-col>
     </v-row>
   </v-container>

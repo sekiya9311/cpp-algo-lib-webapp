@@ -8,7 +8,7 @@
         <v-icon left dark>file-copy</v-icon> Copy
       </v-btn>
     </div>
-    <div>
+    <div class="sourceCode">
       <pre class="hljs">
         <code v-html="highlightedSourceCode" />
       </pre>
@@ -70,4 +70,7 @@ export default Vue.extend({
 </script>
 
 <style scoped>
+.sourceCode {
+  width: 100%;
+}
 </style>
