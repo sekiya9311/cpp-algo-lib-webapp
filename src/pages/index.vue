@@ -11,12 +11,18 @@
           label="Search text" />
         <tree-view
           :rootNode="rootNode"
-          :onSelected="() => {}" />
+          :onSelected="selectedNode" />
       </aside>
       <main>
         <display-source-codes :nodeArray="searchedNodeArray" />
       </main>
     </div>
+    <v-dialog v-model="displaySourceCodeDialog">
+      <display-source-code
+        :title="selectedTitle"
+        :sourceCode="selectedSourceCode"
+        :onCopy="disabledDialog" />
+    </v-dialog>
   </div>
 </template>
 
@@ -24,6 +30,7 @@
 import Vue from 'vue'
 import MyHeader from  '../components/Header.vue'
 import TreeView from '../components/TreeView.vue'
+import DisplaySourceCode from '../components/DisplaySourceCode.vue'
 import DisplaySourceCodes from '../components/DisplaySourceCodes.vue'
 import { TreeNode } from '../types/TreeNode'
 
@@ -31,6 +38,7 @@ export default Vue.extend({
   components: {
     MyHeader,
     TreeView,
+    DisplaySourceCode,
     DisplaySourceCodes
   },
   data() {
@@ -39,13 +47,12 @@ export default Vue.extend({
       libraryUrl: 'https://github.com/sekiya9311/CplusplusAlgorithmLibrary',
       appUrl: 'https://github.com/sekiya9311/cpp-algo-lib-webapp',
       searchWord: '',
-      data: '',
-      tmp: false
+      displaySourceCodeDialog: false,
+      selectedTitle: '',
+      selectedSourceCode: ''
     }
   },
   mounted: async function() {
-    const res = await fetch('./.netlify/functions/nyaa')
-    this.data = await res.text()
     await this.$store.dispatch('setTree')
   },
   computed: {
@@ -58,6 +65,16 @@ export default Vue.extend({
     },
     searchedNodeArray(): TreeNode[] {
       return this.$store.getters.filteredNodeArray(this.searchWord)
+    }
+  },
+  methods: {
+    selectedNode(selectedNode: TreeNode) {
+      this.selectedTitle = selectedNode.title
+      this.selectedSourceCode = selectedNode.sourceCode
+      this.displaySourceCodeDialog = true
+    },
+    disabledDialog() {
+      this.displaySourceCodeDialog = false
     }
   }
 })

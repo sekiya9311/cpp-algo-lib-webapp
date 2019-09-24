@@ -5,8 +5,8 @@ export enum TreeType {
 }
 
 export interface TreeNode {
-  title: String
-  sourceCode: String
+  title: string
+  sourceCode: string
   children: TreeNode[]
   type: TreeType
 }
