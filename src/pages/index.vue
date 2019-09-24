@@ -6,12 +6,15 @@
       :serviceRepositoryUrl="appUrl" />
     <div class="content">
       <aside>
+        <v-text-field
+          v-model="searchWord"
+          label="Search text" />
         <tree-view
           :rootNode="rootNode"
           :onSelected="() => {}" />
       </aside>
       <main>
-        <display-source-codes :nodeArray="nodeArray"  />
+        <display-source-codes :nodeArray="searchedNodeArray" />
       </main>
     </div>
   </div>
