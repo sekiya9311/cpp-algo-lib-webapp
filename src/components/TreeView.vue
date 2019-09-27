@@ -1,10 +1,16 @@
 <template>
-  <v-treeview
-    :items="decorateRootNode.children"
-    :active.sync="selectedId"
-    item-text="title"
-    open-on-click
-    activatable />
+  <div>
+    <v-treeview
+      :items="decorateRootNode.children"
+      item-key="id"
+      open-on-click>
+      <template v-slot:label="{item}">
+        <div @click="clickItem(item)">
+          {{item.title}}
+        </div>
+      </template>
+    </v-treeview>
+  </div>
 </template>
 
 <script lang="ts">
@@ -24,14 +30,9 @@ export default Vue.extend({
   data() {
     return {
       nodeCount: 0,
-      selectedId: [] as number[]
     }
   },
   computed: {
-    selectedNode(): DecorateTreeNode | null {
-      const id = this.selectedId.length ? this.selectedId[0] : -1
-      return this.getNode(id)
-    },
     decorateRootNode(): DecorateTreeNode {
       return this.decorate(this.rootNode)
     }
@@ -45,24 +46,10 @@ export default Vue.extend({
         children: node.children.map(this.decorate)
       }
     },
-    getNode(id: number, currentNode?: DecorateTreeNode): DecorateTreeNode | null {
-      currentNode = currentNode || this.decorateRootNode
+    clickItem(item: DecorateTreeNode) {
+      if (item.type === TreeType.internal) return
 
-      if (id === currentNode.id) {
-        return currentNode
-      }
-
-      const cand = currentNode.children
-        .map(v => this.getNode(id, v))
-        .find(v => !!v)
-      return cand || null
-    }
-  },
-  watch: {
-    selectedNode() {
-      const selectedTreeNode = this.selectedNode || INITIAL_TREE_NODE
-
-      this.onSelected(selectedTreeNode)
+      this.onSelected(item)
     }
   }
 })
