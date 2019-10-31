@@ -1,13 +1,11 @@
 <template>
   <a :href="this.url" :style="{fontSize: fontSize}" target="__blank">
-    <div>
+    <div class="context">
       <div>
         <font-awesome-icon :icon="this.icon" />
       </div>
       <div>
-        <small>
-          {{this.detail}}
-        </small>
+        {{this.detail}}
       </div>
     </div>
   </a>
@@ -41,8 +39,11 @@ a > div {
   text-align: center;
 }
 
-a > div > * {
-  margin-top: -0.7em;
-  margin-bottom: -0.7em;
+.context > * {
+  font-size: 20px;
+}
+
+.context > *:first-child {
+  margin-bottom: -0.3em;
 }
 </style>
