@@ -2,6 +2,12 @@
 
 > C++ Algorithm Library By sekiya9311
 
+## NOTE
+Need this environment variable.
+```
+GITHUB_API_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+```
+
 ## Build Setup
 
 ``` bash
