@@ -17,7 +17,8 @@
         <display-source-codes :nodeArray="searchedNodeArray" />
       </main>
     </div>
-    <v-dialog v-model="displaySourceCodeDialog">
+    <v-dialog v-model="displaySourceCodeDialog"
+              width="75vw">
       <display-source-code
         :title="selectedTitle"
         :sourceCode="selectedSourceCode"
@@ -96,5 +97,9 @@ export default Vue.extend({
 .content > main {
   flex-grow: 1;
   margin-right: 5em;
+}
+
+.v-dialog {
+  background-color: white;
 }
 </style>
