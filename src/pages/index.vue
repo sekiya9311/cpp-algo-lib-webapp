@@ -87,10 +87,14 @@ export default Vue.extend({
 
 .content {
   display: flex;
-  margin-right: 5vw;
 }
 
 .content > aside {
   width: 20vw;
+}
+
+.content > main {
+  flex-grow: 1;
+  margin-right: 5em;
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div>
+  <div class="all">
+    <div class="sourcecode-title">
       <strong>
         {{title}}
       </strong>
@@ -8,8 +8,8 @@
         <v-icon left dark>file-copy</v-icon> Copy
       </v-btn>
     </div>
-    <div class="sourceCode">
-      <pre class="hljs">
+    <div class="sourcecode-detail">
+      <pre>
         <code v-html="highlightedSourceCode" />
       </pre>
     </div>
@@ -70,7 +70,23 @@ export default Vue.extend({
 </script>
 
 <style scoped>
-.sourceCode {
-  width: 100%;
+code {
+  overflow: auto;
+  padding: 1em;
 }
+
+.sourcecode-title {
+  margin-bottom: 1em;
+  text-align: center;
+}
+
+.sourcecode-title > strong {
+  font-size: 20px;
+}
+
+.sourcecode-detail {
+  display: flex;
+  justify-content: center;
+}
+
 </style>

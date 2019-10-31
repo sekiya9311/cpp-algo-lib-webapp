@@ -2,11 +2,12 @@
   <v-container>
     <v-row v-for="(r, rowIdx) in filteredNodeArrayForDisplay" :key="rowIdx">
       <v-col v-for="(cell, cellIdx) in r" :key="cellIdx">
-        <display-source-code
-          :title="cell.title"
-          :sourceCode="cell.sourceCode"
-          :onCopy="copied"
-          class="" />
+        <div class="sourcecode-container">
+          <display-source-code
+            :title="cell.title"
+            :sourceCode="cell.sourceCode"
+            :onCopy="copied" />
+        </div>
       </v-col>
     </v-row>
   </v-container>
@@ -51,5 +52,7 @@ export default Vue.extend({
 </script>
 
 <style scoped>
-
+.sourcecode-container {
+  width: 35vw;
+}
 </style>
