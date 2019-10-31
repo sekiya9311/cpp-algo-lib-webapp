@@ -81,12 +81,16 @@ export default Vue.extend({
 </script>
 
 <style>
+* {
+  font-size: 14px;
+}
+
 .content {
   display: flex;
   margin-right: 5vw;
 }
 
 .content > aside {
-  width: 25vw;
+  width: 20vw;
 }
 </style>
