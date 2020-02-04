@@ -3,6 +3,9 @@ import { TreeNode, TreeType } from '../src/types/TreeNode'
 import dotenv from 'dotenv'
 import axios from 'axios'
 
+const USER_NAME = 'sekiya9311'
+const GITHUB_API_KEY = process.env.GITHUB_API_KEY || ''
+
 interface LibrariesResponse {
   statusCode: Number,
   headers: { 'Content-Type': string }
@@ -34,9 +37,8 @@ export const handler: Handler = async (
 
 async function getLibrariesCpp(): Promise<TreeNode[]> {
   const RepositoryUrl = 'https://api.github.com/repos/sekiya9311/CplusplusAlgorithmLibrary/contents'
-  const Url = `${RepositoryUrl}/?access_token=${process.env.GITHUB_API_KEY}`
 
-  const res = await getChildren(Url)
+  const res = await getChildren(RepositoryUrl)
 
   return res
 }
@@ -55,12 +57,16 @@ async function makeTree(data: any): Promise<TreeNode | null> {
   if (isDirectory && data.name === 'test') { return null }
 
   if (isDirectory) {
-    const url = `${data.url}&access_token=${process.env.GITHUB_API_KEY}`
-    res.children = await getChildren(url)
+    res.children = await getChildren(data.url)
     res.type = TreeType.internal
 
   } else if (isCppFile) {
-    res.sourceCode = JSON.stringify((await axios.get(data.download_url)).data)
+    res.sourceCode = JSON.stringify((await axios.get(data.download_url, {
+      auth: {
+        username: USER_NAME,
+        password: GITHUB_API_KEY
+      }
+    })).data)
     res.type = TreeType.leaf
 
   } else {
@@ -71,7 +77,12 @@ async function makeTree(data: any): Promise<TreeNode | null> {
 }
 
 async function getChildren(url: string): Promise<TreeNode[]> {
-  const fetchData = (await axios.get(url)).data as []
+  const fetchData = (await axios.get(url, {
+    auth: {
+      username: USER_NAME,
+      password: GITHUB_API_KEY
+    }
+  })).data as []
   const res = (await Promise.all(
     fetchData.map(async e => await makeTree(e))
   )).filter(e => e) as TreeNode[]
