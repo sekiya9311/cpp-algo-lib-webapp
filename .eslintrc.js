@@ -2,6 +2,7 @@ module.exports = {
   env: {
     browser: true,
     es6: true,
+    'jest/globals': true,
   },
   extends: [
     'eslint:recommended',
@@ -24,6 +25,8 @@ module.exports = {
     ecmaVersion: 2018,
     sourceType: 'module',
   },
-  plugins: ['react', '@typescript-eslint', 'jsx-a11y', 'react-hooks'],
-  rules: {},
+  plugins: ['react', '@typescript-eslint', 'jsx-a11y', 'react-hooks', 'jest'],
+  rules: {
+    '@typescript-eslint/no-unused-vars': 'error',
+  },
 };

@@ -1,18 +1,14 @@
-import { Handler, Context, Callback, APIGatewayEvent } from 'aws-lambda'
+import { Handler } from 'aws-lambda';
 
 interface NyaaResponse {
-  statusCode: Number,
-  body: string
+  statusCode: Number;
+  body: string;
 }
 
-export const handler: Handler = (
-  event: APIGatewayEvent,
-  context: Context,
-  callback: Callback
-) => {
+export const handler: Handler = (_event, _context, callback) => {
   const res: NyaaResponse = {
     statusCode: 200,
-    body: 'lambda de nyaa'
-  }
-  callback(null, res)
-}
+    body: 'lambda de nyaa',
+  };
+  callback(null, res);
+};
