@@ -1,25 +1,25 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { ThemeProvider, CssBaseline, createMuiTheme } from '@material-ui/core';
+import { useSelector } from 'react-redux';
+import { RootState } from './store/rootReducer';
+import { AppHeader } from './components/AppHeader';
 
 function App() {
+  const themeState = useSelector((state: RootState) => state.colorTheme);
+  const theme = React.useMemo(() => {
+    return createMuiTheme({
+      palette: {
+        type: themeState.type,
+      },
+    });
+  }, [themeState]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <AppHeader showMenu={() => {}} />
+    </ThemeProvider>
   );
 }
 
