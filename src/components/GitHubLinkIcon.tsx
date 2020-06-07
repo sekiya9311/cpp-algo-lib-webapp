@@ -20,7 +20,7 @@ export const GitHubLinkIcon = React.memo((props: Props) => {
     <IconButton
       href={props.linkUrl}
       target='_blank'
-      rel='noopener noreferrer'
+      rel='noopener'
       color={props.color}
     >
       <div className={styles.icon}>
