@@ -20,7 +20,7 @@ import { ToggleIcon } from './ToggleIcon';
 import { RootState } from '../store/rootReducer';
 
 interface Props {
-  readonly showMenu: () => void;
+  readonly showDrawer: () => void;
 }
 
 const useStyles = makeStyles((theme) =>
@@ -51,7 +51,7 @@ export const AppHeader: React.FC<Props> = (props: Props) => {
     <AppBar className={styles.root}>
       <Toolbar>
         <IconButton
-          onClick={props.showMenu}
+          onClick={props.showDrawer}
           className={styles.menuButton}
           color='inherit'
         >
