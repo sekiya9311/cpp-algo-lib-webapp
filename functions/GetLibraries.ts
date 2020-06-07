@@ -36,12 +36,22 @@ async function getLibrariesCpp(): Promise<TreeNode[]> {
     'https://api.github.com/repos/sekiya9311/CplusplusAlgorithmLibrary/contents';
 
   const res = await getChildren(RepositoryUrl);
+  {
+    const stack: TreeNode[] = [];
+    stack.push(...res);
+    for (let key = 0; stack.length > 0; key++) {
+      const cur = stack.pop();
+      cur.key = key;
+      stack.push(...cur.children);
+    }
+  }
 
   return res;
 }
 
 async function makeTree(data: any): Promise<TreeNode | null> {
   const res: TreeNode = {
+    key: -1, // 仮で設定、後 (getLibrariesCpp 関数内) で正しい値をセットする
     title: data.name,
     sourceCode: '',
     children: [],
