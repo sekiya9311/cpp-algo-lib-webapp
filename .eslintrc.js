@@ -1,19 +1,37 @@
 module.exports = {
-  root: true,
   env: {
     browser: true,
-    node: true
-  },
-  parserOptions: {
-    parser: 'babel-eslint'
+    es6: true,
+    'jest/globals': true,
   },
   extends: [
-    '@nuxtjs',
-    'plugin:prettier/recommended'
+    'eslint:recommended',
+    'standard',
+    'plugin:react/recommended',
+    'plugin:react-hooks/recommended',
+    'plugin:jsx-a11y/recommended',
+    'prettier',
+    'plugin:prettier/recommended',
   ],
-  plugins: [
-    'prettier'
-  ],
-  // add your custom rules here
-  rules: {}
-}
+  globals: {
+    Atomics: 'readonly',
+    SharedArrayBuffer: 'readonly',
+  },
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    ecmaFeatures: {
+      jsx: true,
+    },
+    ecmaVersion: 2018,
+    sourceType: 'module',
+  },
+  plugins: ['react', '@typescript-eslint', 'jsx-a11y', 'react-hooks', 'jest'],
+  rules: {
+    '@typescript-eslint/no-unused-vars': 'error',
+  },
+  settings: {
+    react: {
+      version: 'detect',
+    },
+  },
+};

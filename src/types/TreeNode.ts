@@ -1,19 +1,20 @@
-
 export enum TreeType {
   internal,
-  leaf
+  leaf,
 }
 
 export interface TreeNode {
-  title: string
-  sourceCode: string
-  children: TreeNode[]
-  type: TreeType
+  key: number;
+  title: string;
+  sourceCode: string;
+  children: TreeNode[];
+  type: TreeType;
 }
 
 export const INITIAL_TREE_NODE: TreeNode = {
+  key: -1,
   title: '',
   sourceCode: '',
   children: [],
-  type: TreeType.leaf
-}
+  type: TreeType.leaf,
+};
