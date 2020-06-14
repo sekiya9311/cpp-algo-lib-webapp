@@ -7,11 +7,11 @@ import {
   ListItem,
   ListItemText,
   Divider,
+  makeStyles,
 } from '@material-ui/core';
-import { useSelector } from 'react-redux';
-import { RootState } from '../store/rootReducer';
 import { TreeNode, TreeType } from '../types/TreeNode';
 import { useHistory } from 'react-router';
+import { useFetchLibraries } from '../util/CachedApiClient';
 
 interface AppSidebarItemProps {
   node: TreeNode;
@@ -67,9 +67,16 @@ interface Props {
   onClose: () => void;
 }
 
+const useStyles = makeStyles({
+  root: {
+    width: '20vw',
+  },
+});
+
 export const AppSidebar: React.FC<Props> = (props: Props) => {
+  const styles = useStyles();
   const history = useHistory();
-  const libraries = useSelector((state: RootState) => state.libraries);
+  const libraries = useFetchLibraries();
   const onClick = useCallback(
     (key: number) => {
       history.push({ pathname: `/detail/${key}` });
@@ -86,8 +93,9 @@ export const AppSidebar: React.FC<Props> = (props: Props) => {
             <Divider />
           </>
         }
+        className={styles.root}
       >
-        {libraries.root.children.map((node) => (
+        {libraries.value?.children.map((node) => (
           <AppSidebarItem
             key={node.key}
             node={node}
