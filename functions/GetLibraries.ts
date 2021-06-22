@@ -3,7 +3,10 @@ import { TreeNode, TreeType } from '../src/types/TreeNode';
 import dotenv from 'dotenv';
 import axios from 'axios';
 
-const USER_NAME = 'sekiya9311';
+if (dotenv.config) {
+  dotenv.config();
+}
+
 const GITHUB_API_KEY = process.env.GITHUB_API_KEY || '';
 
 interface LibrariesResponse {
@@ -13,10 +16,6 @@ interface LibrariesResponse {
 }
 
 export const handler: Handler = async (event) => {
-  if (dotenv.config) {
-    dotenv.config();
-  }
-
   const params = event.queryStringParameters;
   const lang = params && params.lang ? params.lang : 'cpp';
 
@@ -41,6 +40,7 @@ async function getLibrariesCpp(): Promise<TreeNode[]> {
     stack.push(...res);
     for (let key = 0; stack.length > 0; key++) {
       const cur = stack.pop();
+      if (!cur) continue;
       cur.key = key;
       stack.push(...cur.children);
     }
@@ -72,9 +72,8 @@ async function makeTree(data: any): Promise<TreeNode | null> {
     res.sourceCode = JSON.stringify(
       (
         await axios.get(data.download_url, {
-          auth: {
-            username: USER_NAME,
-            password: GITHUB_API_KEY,
+          headers: {
+            Authorization: `token ${GITHUB_API_KEY}`,
           },
         })
       ).data
@@ -90,9 +89,8 @@ async function makeTree(data: any): Promise<TreeNode | null> {
 async function getChildren(url: string): Promise<TreeNode[]> {
   const fetchData = (
     await axios.get(url, {
-      auth: {
-        username: USER_NAME,
-        password: GITHUB_API_KEY,
+      headers: {
+        Authorization: `token ${GITHUB_API_KEY}`,
       },
     })
   ).data as [];
